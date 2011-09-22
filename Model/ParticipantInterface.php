@@ -13,9 +13,29 @@ interface ParticipantInterface
 
     function getId();
 
+    /**
+     * @return \DateTime created time
+     */
     function getCreatedAt();
 
+    /**
+     * @return \DateTime last updated time
+     */
     function getUpdatedAt();
+    
+    /**
+     * Time that participation expires (null for never)
+     * This is necessary so that participants can drop their participation at
+     * some point in the future while still allowing shallow copies of Events
+     * 
+     * @param \DateTime $expiry
+     */
+    function setExpiry(\DateTime $expiry = null);
+    
+    /**
+     * @return \DateTime time participation expires
+     */
+    function getExpiry();
 
     function setUser(UserInterface $user);
 

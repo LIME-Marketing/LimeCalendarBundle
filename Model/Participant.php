@@ -10,6 +10,7 @@ abstract class Participant implements ParticipantInterface
     protected $id;
     protected $created_at;
     protected $updated_at;
+    protected $expiry;
     protected $user;
     protected $role;
 
@@ -26,6 +27,16 @@ abstract class Participant implements ParticipantInterface
     public function getUpdatedAt()
     {
         return $this->updated_at;
+    }
+
+    public function setExpiry(\DateTime $expiry = null)
+    {
+        $this->expiry = $expiry;
+    }
+    
+    public function getExpiry()
+    {
+        return $this->expiry;
     }
 
     public function setUser(UserInterface $user)
