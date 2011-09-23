@@ -1,0 +1,6 @@
+app/cache/
+app/logs/
+web/bundles
+vendor
+phpunit.xml
+Tests/autoload.php
