@@ -10,6 +10,8 @@ abstract class Event implements EventInterface
     protected $id;
     protected $created_at;
     protected $updated_at;
+    protected $parent;
+    protected $children = array();
     protected $recurrence_schedules = array();
     protected $calendar;
     protected $owner;
@@ -31,6 +33,26 @@ abstract class Event implements EventInterface
     public function getUpdatedAt()
     {
         return $this->updated_at;
+    }
+    
+    public function setParent(EventInterface $parent = null)
+    {
+        $this->parent = $parent;
+    }
+    
+    public function getParent()
+    {
+        return $this->parent;
+    }
+    
+    public function addChild(EventInterface $child)
+    {
+        $this->children[] = $child;
+    }
+    
+    public function getChildren()
+    {
+        return $this->children;
     }
 
     public function addRecurrenceSchedule(RecurrenceScheduleInterface $recurrence_schedule)
