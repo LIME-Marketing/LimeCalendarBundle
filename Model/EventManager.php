@@ -20,10 +20,5 @@ abstract class EventManager implements EventManagerInterface
         
         return $event;
     }
-    
-    public function addParticipant(EventParticipantInterface $participant, EventInterface $event)
-    {
-        $event->addParticipant($participant);
-    }
 
 }

@@ -17,10 +17,5 @@ abstract class CalendarManager implements CalendarManagerInterface
         
         return $calendar;
     }
-    
-    public function addEvent(EventInterface $event, CalendarInterface $calendar)
-    {
-        $calendar->addEvent($event);
-    }
 
 }
