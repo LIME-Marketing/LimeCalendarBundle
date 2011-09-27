@@ -30,18 +30,5 @@ class EventManagerTest extends \PHPUnit_Framework_TestCase
         
         return $event;
     }
-    
-    /**
-     * @depends testCreateEvent
-     */
-    public function testAddParticipant(Impl\EventImpl $event)
-    {
-        $eventManager = $this->eventManager;
-        
-        $participant = new Impl\EventParticipantImpl();
-        $eventManager->addParticipant($participant, $event);
-        
-        $this->assertTrue(in_array($participant, $event->getParticipants()));
-    }
 
 }

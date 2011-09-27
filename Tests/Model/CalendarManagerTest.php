@@ -27,19 +27,5 @@ class CalendarManagerTest extends \PHPUnit_Framework_TestCase
         
         return $calendar;
     }
-    
-    /**
-     * @depends testCreateCalendar
-     */
-    public function testAddEvent(Impl\CalendarImpl $calendar)
-    {
-        $calendarManager = $this->calendarManager;
-        
-        $event = new Impl\EventImpl();
-        
-        $calendarManager->addEvent($event, $calendar);
-        
-        $this->assertTrue(in_array($event, $calendar->getEvents()));
-    }
 
 }

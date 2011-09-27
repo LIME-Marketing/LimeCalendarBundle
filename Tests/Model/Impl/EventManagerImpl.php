@@ -8,17 +8,21 @@ use Lime\CalendarBundle\Model\EventInterface;
 
 class EventManagerImpl extends EventManager
 {
-    
+
     protected $class;
-    
+
     public function __construct($class)
     {
         $this->class = $class;
     }
-    
+
     public function getClass()
     {
         return $this->class;
     }
+
+    public function addParticipant(EventParticipantInterface $participant, EventInterface $event) {}
+
+    public function find($id) {}
 
 }
