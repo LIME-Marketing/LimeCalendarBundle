@@ -8,11 +8,17 @@ abstract class RecurrenceSchedule implements RecurrenceScheduleInterface
     protected $id;
     protected $created_at;
     protected $updated_at;
+    protected $start;
     protected $event;
     protected $recurrence_interval;
     protected $last_recurrence;
     protected $recur_until;
     
+    public function __construct(\DateTime $start)
+    {
+        $this->start = $start;
+    }
+
     public function getId()
     {
         return $this->id;
@@ -28,6 +34,16 @@ abstract class RecurrenceSchedule implements RecurrenceScheduleInterface
         return $this->updated_at;
     }
     
+    public function setStart(\DateTime $start)
+    {
+        $this->start = $start;
+    }
+
+    public function getStart()
+    {
+        return $this->start;
+    }
+
     public function setEvent(EventInterface $event)
     {
         $this->event = $event;
