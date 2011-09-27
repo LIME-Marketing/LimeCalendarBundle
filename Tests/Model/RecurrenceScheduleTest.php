@@ -2,21 +2,26 @@
 
 namespace Lime\CalendarBundle\Tests\Model;
 
-use Lime\CalendarBundle\Model\RecurrenceSchedule;
-use Lime\CalendarBundle\Model\EventInterface;
+use Lime\CalendarBundle\Tests\Model\Impl\EventImpl;
+use Lime\CalendarBundle\Tests\Model\Impl\RecurrenceScheduleImpl;
 
 class RecurrenceScheduleTest extends \PHPUnit_Framework_TestCase
 {
     
     public function testGettersSetters()
     {
-        $schedule = new RecurrenceScheduleImpl();
+        $schedule = new RecurrenceScheduleImpl(new \DateTime());
         
         $this->assertTrue(null === $schedule->getId());
         
         $this->assertTrue(null === $schedule->getCreatedAt());
         
         $this->assertTrue(null === $schedule->getUpdatedAt());
+        
+        $this->assertTrue($schedule->getStart() instanceof \DateTime);
+        $start = new \DateTime();
+        $schedule->setStart($start);
+        $this->assertTrue($schedule->getStart() === $start);
         
         $this->assertTrue(null === $schedule->getEvent());
         $event = new EventImpl();
@@ -63,10 +68,7 @@ class RecurrenceScheduleTest extends \PHPUnit_Framework_TestCase
         }
         
         $this->assertTrue($schedule->getRecurrences() instanceof \DatePeriod);
+        $this->assertTrue($schedule->getRecurrences(false) instanceof \DatePeriod);
     }
 
-}
-
-class RecurrenceScheduleImpl extends RecurrenceSchedule
-{
 }
