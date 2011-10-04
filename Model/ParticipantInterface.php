@@ -3,8 +3,9 @@
 namespace Lime\CalendarBundle\Model;
 
 use Symfony\Component\Security\Core\User\UserInterface;
+use Lime\CalendarBundle\Blamer\BlamableInterface;
 
-interface ParticipantInterface
+interface ParticipantInterface extends BlamableInterface
 {
     const ROLE_VIEW = 1;
     const ROLE_CONTRIBUTE = 2;
@@ -40,10 +41,6 @@ interface ParticipantInterface
      * @return \DateTime time participation expires
      */
     function getExpiry();
-
-    function setUser(UserInterface $user);
-
-    function getUser();
 
     function setRole($role);
 

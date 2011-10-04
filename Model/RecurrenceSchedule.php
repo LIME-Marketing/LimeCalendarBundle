@@ -4,7 +4,7 @@ namespace Lime\CalendarBundle\Model;
 
 abstract class RecurrenceSchedule implements RecurrenceScheduleInterface
 {
-    
+
     protected $id;
     protected $created_at;
     protected $updated_at;
@@ -13,27 +13,22 @@ abstract class RecurrenceSchedule implements RecurrenceScheduleInterface
     protected $recurrence_interval;
     protected $last_recurrence;
     protected $recur_until;
-    
-    public function __construct(\DateTime $start)
-    {
-        $this->start = $start;
-    }
 
     public function getId()
     {
         return $this->id;
     }
-    
+
     public function getCreatedAt()
     {
         return $this->created_at;
     }
-    
+
     public function getUpdatedAt()
     {
         return $this->updated_at;
     }
-    
+
     public function setStart(\DateTime $start)
     {
         $this->start = $start;
@@ -48,7 +43,7 @@ abstract class RecurrenceSchedule implements RecurrenceScheduleInterface
     {
         $this->event = $event;
     }
-    
+
     public function getEvent()
     {
         return $this->event;
@@ -91,7 +86,7 @@ abstract class RecurrenceSchedule implements RecurrenceScheduleInterface
         } else {
             $start = $this->start;
         }
-        
+
         return new \DatePeriod($start, $this->recurrence_interval, $this->recur_until, $excludeStart ? \DatePeriod::EXCLUDE_START_DATE : null);
     }
 

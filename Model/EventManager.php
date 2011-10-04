@@ -7,17 +7,17 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 abstract class EventManager implements EventManagerInterface
 {
-    
-    public function createEvent(UserInterface $owner, \DateTime $startDate, \DateTime $endDate, $visibility = EventInterface::VISIBILITY_PUBLIC)
+
+    /**
+     * @return EventInterface
+     */
+    public function createEvent(CalendarInterface $calendar)
     {
         $class = $this->getClass();
         $event = new $class();
-        
-        $event->setOwner($owner);
-        $event->setStartDate($startDate);
-        $event->setEndDate($endDate);
-        $event->setVisibility($visibility);
-        
+
+        $event->setCalendar($calendar);
+
         return $event;
     }
 

@@ -10,14 +10,21 @@ abstract class Calendar implements CalendarInterface
     protected $id;
     protected $created_at;
     protected $updated_at;
-    protected $owner;
-    protected $participants = array();
+    protected $user;
+    protected $memberships = array();
     protected $events = array();
     protected $visibility;
+    protected $name;
+    protected $description;
 
     public function getId()
     {
         return $this->id;
+    }
+
+    public function setCreatedAt(\DateTime $created_at)
+    {
+        $this->created_at = $created_at;
     }
 
     public function getCreatedAt()
@@ -25,29 +32,34 @@ abstract class Calendar implements CalendarInterface
         return $this->created_at;
     }
 
+    public function setUpdatedAt(\DateTime $updated_at)
+    {
+        $this->updated_at = $updated_at;
+    }
+
     public function getUpdatedAt()
     {
         return $this->updated_at;
     }
 
-    public function setOwner(UserInterface $owner)
+    public function setUser(UserInterface $user)
     {
-        $this->owner = $owner;
+        $this->user = $user;;
     }
 
-    public function getOwner()
+    public function getUser()
     {
-        return $this->owner;
+        return $this->user;
     }
 
-    public function addParticipant(CalendarParticipantInterface $participant)
+    public function addMembership(MembershipInterface $membership)
     {
-        $this->participants[] = $participant;
+        $this->memberships[] = $membership;
     }
 
-    public function getParticipants()
+    public function getMemberships()
     {
-        return $this->participants;
+        return $this->memberships;
     }
 
     public function addEvent(EventInterface $event)
@@ -59,15 +71,35 @@ abstract class Calendar implements CalendarInterface
     {
         return $this->events;
     }
-    
+
     public function setVisibility($visibility)
     {
         $this->visibility = $visibility;
     }
-    
+
     public function getVisibility()
     {
         return $this->visibility;
+    }
+
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
+    public function getDescription()
+    {
+        return $this->description;
     }
 
 }

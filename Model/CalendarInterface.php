@@ -3,34 +3,43 @@
 namespace Lime\CalendarBundle\Model;
 
 use Symfony\Component\Security\Core\User\UserInterface;
+use Lime\CalendarBundle\Blamer\BlamableInterface;
 
-interface CalendarInterface
+interface CalendarInterface extends BlamableInterface
 {
-    
+
     const VISIBILITY_HIDDEN = 1;
     const VISIBILITY_PRIVATE = 2;
     const VISIBILITY_PUBLIC = 4;
-    
-    public function getId();
 
-    public function getCreatedAt();
+    function getId();
 
-    public function getUpdatedAt();
+    function setCreatedAt(\DateTime $created_at);
 
-    public function setOwner(UserInterface $owner);
+    function getCreatedAt();
 
-    public function getOwner();
+    function setUpdatedAt(\DateTime $updated_at);
 
-    public function addParticipant(CalendarParticipantInterface $participant);
+    function getUpdatedAt();
 
-    public function getParticipants();
+    function addMembership(MembershipInterface $membership);
 
-    public function addEvent(EventInterface $event);
+    function getMemberships();
 
-    public function getEvents();
+    function addEvent(EventInterface $event);
 
-    public function setVisibility($visibility);
+    function getEvents();
 
-    public function getVisibility();
+    function setVisibility($visibility);
+
+    function getVisibility();
+
+    function setName($name);
+
+    function getName();
+
+    function setDescription($description);
+
+    function getDescription();
 
 }

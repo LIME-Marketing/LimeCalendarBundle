@@ -5,13 +5,9 @@ namespace Lime\CalendarBundle\Model;
 interface EventManagerInterface
 {
 
-    /**
-     * Concrete manager should handle flushing the relationship to the database
-     *
-     * @param EventParticipantInterface $participant
-     * @param EventInterface $event
-     */
-    function addParticipant(EventParticipantInterface $participant, EventInterface $event);
+    function addEvent(EventInterface $event);
+
+    function createEvent(CalendarInterface $calendar);
 
     /**
      * @param integer $id

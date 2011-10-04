@@ -2,6 +2,8 @@
 
 namespace Lime\CalendarBundle\Model;
 
-interface MembershipInterface
+use Lime\CalendarBundle\Blamer\BlamableInterface;
+
+interface MembershipInterface extends BlamableInterface
 {
 }

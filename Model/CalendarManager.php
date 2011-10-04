@@ -6,15 +6,15 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 abstract class CalendarManager implements CalendarManagerInterface
 {
-    
-    public function createCalendar(UserInterface $owner, $visibility = CalendarInterface::VISIBILITY_PUBLIC)
+
+    /**
+     * @return CalendarInterface
+     */
+    public function createCalendar()
     {
         $class = $this->getClass();
         $calendar = new $class();
-        
-        $calendar->setOwner($owner);
-        $calendar->setVisibility($visibility);
-        
+
         return $calendar;
     }
 
