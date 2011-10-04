@@ -4,8 +4,8 @@ namespace Lime\CalendarBundle\Entity;
 
 use Lime\CalendarBundle\Model\EventManager as BaseEventManager;
 use Doctrine\ORM\EntityManager;
-use Lime\CalendarBundle\Model\EventParticipantInterface;
 use Lime\CalendarBundle\Model\EventInterface;
+use Lime\CalendarBundle\Model\RecurrenceScheduleInterface;
 
 class EventManager extends BaseEventManager
 {
@@ -26,11 +26,17 @@ class EventManager extends BaseEventManager
         return $this->repo->find($id);
     }
 
-    public function addParticipant(EventParticipantInterface $participant, EventInterface $event)
+    public function addEvent(EventInterface $event)
     {
-        $participant->setEvent($event);
+        $this->em->persist($event);
+        $this->em->flush();
+    }
 
-        $this->em->persist($participant);
+    public function addRecurrenceSchedule(RecurrenceScheduleInterface $schedule, EventInterface $event)
+    {
+        $schedule->setEvent($event);
+
+        $this->em->persist($schedule);
         $this->em->flush();
     }
 

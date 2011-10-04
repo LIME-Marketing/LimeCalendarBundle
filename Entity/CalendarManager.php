@@ -4,7 +4,6 @@ namespace Lime\CalendarBundle\Entity;
 
 use Lime\CalendarBundle\Model\CalendarManager as BaseCalendarManager;
 use Doctrine\ORM\EntityManager;
-use Lime\CalendarBundle\Model\EventInterface;
 use Lime\CalendarBundle\Model\CalendarInterface;
 
 class CalendarManager extends BaseCalendarManager
@@ -26,11 +25,9 @@ class CalendarManager extends BaseCalendarManager
         return $this->repo->find($id);
     }
 
-    public function addEvent(EventInterface $event, CalendarInterface $calendar)
+    public function addCalendar(CalendarInterface $calendar)
     {
-        $event->setCalendar($calendar);
-
-        $this->em->persist($event);
+        $this->em->persist($calendar);
         $this->em->flush();
     }
 
