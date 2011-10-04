@@ -21,6 +21,8 @@ class CalendarManagerImpl extends CalendarManager
         return $this->class;
     }
 
+    public function addCalendar(CalendarInterface $calendar) {}
+
     public function addEvent(EventInterface $event, CalendarInterface $calendar) {}
 
     public function find($id) {}

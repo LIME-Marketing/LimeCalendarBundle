@@ -25,4 +25,6 @@ class EventManagerImpl extends EventManager
 
     public function find($id) {}
 
+    public function addEvent(EventInterface $event) {}
+
 }
