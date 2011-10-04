@@ -22,16 +22,20 @@ interface ParticipantInterface
      * @return \DateTime last updated time
      */
     function getUpdatedAt();
-    
+
+    function setEvent(EventInterface $event);
+
+    function getEvent();
+
     /**
      * Time that participation expires (null for never)
      * This is necessary so that participants can drop their participation at
      * some point in the future while still allowing shallow copies of Events
-     * 
+     *
      * @param \DateTime $expiry
      */
     function setExpiry(\DateTime $expiry = null);
-    
+
     /**
      * @return \DateTime time participation expires
      */

@@ -4,14 +4,13 @@ namespace Lime\CalendarBundle\Model;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 
-abstract class Participant implements ParticipantInterface
+abstract class Membership implements MembershipInterface
 {
 
     protected $id;
     protected $created_at;
     protected $updated_at;
-    protected $event;
-    protected $expiry;
+    protected $calendar;
     protected $user;
     protected $role;
 
@@ -30,24 +29,14 @@ abstract class Participant implements ParticipantInterface
         return $this->updated_at;
     }
 
-    public function setEvent(EventInterface $event)
+    public function setCalendar(CalendarInterface $calendar)
     {
-        $this->event = $event;
+        $this->calendar = $calendar;
     }
 
-    public function getEvent()
+    public function getCalendar()
     {
-        return $this->event;
-    }
-
-    public function setExpiry(\DateTime $expiry = null)
-    {
-        $this->expiry = $expiry;
-    }
-
-    public function getExpiry()
-    {
-        return $this->expiry;
+        return $this->calendar;
     }
 
     public function setUser(UserInterface $user)
