@@ -107,6 +107,9 @@ class EventController extends ContainerAware
 
         return $this->container->get('templating')->renderResponse('LimeCalendarBundle:Event:delete.html.' . $this->container->getParameter('lime_calendar.template.engine'), array(
             'event' => $event,
+            'cancelURL' => $this->container->get('router')->generate($this->container->getParameter('lime_calendar.routing.event.view'), array(
+                'id' => $event->getId(),
+            )),
         ));
     }
 
