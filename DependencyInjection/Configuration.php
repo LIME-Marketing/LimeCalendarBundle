@@ -14,7 +14,7 @@ class Configuration
         $tb->root('lime_calendar', 'array')
             ->children()
 
-                ->scalarNode('db_driver')->cannotBeOverwritten()->isRequired()->cannotBeEmpty()->end()
+                ->scalarNode('db_driver')->cannotBeOverwritten()->cannotBeEmpty()->defaultValue('orm')->end()
 
                 ->arrayNode('class')->isRequired()
                     ->children()
@@ -92,7 +92,7 @@ class Configuration
                     ->end()
                 ->end()
 
-                ->arrayNode('template')
+                ->arrayNode('template')->addDefaultsIfNotSet()
                     ->children()
                         ->scalarNode('engine')->defaultValue('twig')->end()
                     ->end()
