@@ -224,3 +224,51 @@ The routes used by the bundle can be configured, but to use the defaults, includ
 
     lime_calendar:
         resource: "@LimeCalendarBundle/Resource/config/routing.yml"
+
+Configuration Defaults
+======================
+
+::
+
+    # app/config/config.yml
+
+    lime_calendar:
+        db_driver: orm
+        class:
+            model:
+                calendar: ~
+                membership: ~
+                event: ~
+                participant: ~
+        form:
+            calendar:
+                type: lime_calendar.calendar
+                name: lime_calendar_calendar
+            event:
+                type: lime_calendar.event
+                name: lime_calendar_event
+        routing: #used internally for redirects, etc in controllers
+            calendar:
+                index: lime_calendar_calendar_index
+                view: lime_calendar_calendar_view
+                create: lime_calendar_calendar_create
+                edit: lime_calendar_calendar_edit
+                delete: lime_calendar_calendar_delete
+            event:
+                index: lime_calendar_event_index
+                view: lime_calendar_event_view
+                create: lime_calendar_event_create
+                edit: lime_calendar_event_edit
+                delete: lime_calendar_event_delete
+        service:
+            manager:
+                calendar: lime_calendar.manager.calendar.default
+                event: lime_calendar.manager.event.default
+            form_factory:
+                calendar: lime_calendar.form_factory.calendar.default
+                event: lime_calendar.form_factory.event.default
+            blamer:
+                calendar: lime_calendar.blamer.security
+                event: lime_calendar.blamer.security
+        template:
+            engine: twig
