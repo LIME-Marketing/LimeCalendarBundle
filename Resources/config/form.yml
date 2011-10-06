@@ -1,0 +1,24 @@
+services:
+    lime_calendar.form_type.calendar.default:
+        class: Lime\CalendarBundle\Form\CalendarType
+        tags:
+            - { name: form.type, alias: lime_calendar.calendar }
+    lime_calendar.form_type.event.default:
+        class: Lime\CalendarBundle\Form\EventType
+        tags:
+            - { name: form.type, alias: lime_calendar.event }
+
+    lime_calendar.form_factory.calendar.default:
+        class: Lime\CalendarBundle\FormFactory\CalendarFormFactory
+        public: false
+        arguments:
+            formFactory: "@form.factory"
+            type: %lime_calendar.form.calendar.type%
+            name: %lime_calendar.form.calendar.name%
+    lime_calendar.form_factory.event.default:
+        class: Lime\CalendarBundle\FormFactory\EventFormFactory
+        public: false
+        arguments:
+            formFactory: "@form.factory"
+            type: %lime_calendar.form.event.type%
+            name: %lime_calendar.form.event.name%

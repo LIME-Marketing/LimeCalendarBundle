@@ -1,0 +1,5 @@
+services:
+    lime_calendar.blamer.security:
+        class: Lime\CalendarBundle\Blamer\SecurityBlamer
+        arguments:
+            securityContext: "@security.context"

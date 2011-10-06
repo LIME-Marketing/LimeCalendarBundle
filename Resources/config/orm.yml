@@ -1,0 +1,15 @@
+services:
+    lime_calendar.manager.calendar.default:
+        class: Lime\CalendarBundle\Entity\CalendarManager
+        public: false
+        arguments:
+            em: "@doctrine.orm.entity_manager"
+            class: %lime_calendar.model.calendar.class%
+            blamer: "@lime_calendar.blamer.calendar"
+    lime_calendar.manager.event.default:
+        class: Lime\CalendarBundle\Entity\EventManager
+        public: false
+        arguments:
+            em: "@doctrine.orm.entity_manager"
+            class: %lime_calendar.model.event.class%
+            blamer: "@lime_calendar.blamer.event"
