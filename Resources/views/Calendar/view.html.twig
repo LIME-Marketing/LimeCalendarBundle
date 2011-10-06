@@ -1,0 +1,7 @@
+{% extends "LimeCalendarBundle::layout.html.twig" %}
+
+{% block lime_calendar_content %}
+<h1>{{ calendar.getName() }}</h1>
+<h3>{{ calendar.getDescription() }}</h3>
+<p>Owner: {{ calendar.getUser() is not empty ? calendar.getUser().getUsername(): 'null' }}</p>
+{% endblock lime_calendar_content %}

@@ -1,0 +1,19 @@
+lime_calendar_event_index:
+    pattern: /
+    defaults: { _controller: LimeCalendarBundle:Event:index }
+
+lime_calendar_event_create:
+    pattern: /create
+    defaults: { _controller: LimeCalendarBundle:Event:create }
+
+lime_calendar_event_view:
+    pattern: /view/{id}
+    defaults: { _controller: LimeCalendarBundle:Event:view }
+
+lime_calendar_event_edit:
+    pattern: /edit/{id}
+    defaults: { _controller: LimeCalendarBundle:Event:edit }
+
+lime_calendar_event_delete:
+    pattern: /delete/{id}
+    defaults: { _controller: LimeCalendarBundle:Event:delete }

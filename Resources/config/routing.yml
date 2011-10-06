@@ -1,0 +1,6 @@
+lime_calendar_calendar:
+    resource: "@LimeCalendarBundle/Resources/config/routing/calendar.yml"
+
+lime_calendar_event:
+    resource: "@LimeCalendarBundle/Resources/config/routing/event.yml"
+    prefix: /event

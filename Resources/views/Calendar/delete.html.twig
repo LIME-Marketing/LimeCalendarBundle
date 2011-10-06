@@ -1,0 +1,9 @@
+{% extends "LimeCalendarBundle::layout.html.twig" %}
+
+{% block lime_calendar_content %}
+<form method="POST">
+    <h3>Really delete calendar with id {{ calendar.getId() }}?</h3>
+    <input type="submit" />
+    <a href="{{ cancelURL }}">Cancel</a>
+</form>
+{% endblock lime_calendar_content %}
