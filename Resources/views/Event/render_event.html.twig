@@ -1,0 +1,5 @@
+<div class="event" id="event-{{ event.getId() }}">
+    <h1>{{ event.getName() }}</h1>
+    <h3>{{ event.getDescription() }}</h3>
+    <p>Owner: {{ event.getUser() is not empty ? event.getUser().getUsername(): 'null' }}</p>
+</div>

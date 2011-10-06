@@ -1,5 +1,8 @@
 {% extends "LimeCalendarBundle::layout.html.twig" %}
 
 {% block lime_calendar_content %}
-{% include "LimeCalendarBundle:Calendar:render_calendar.html.twig" %}
+<form method="post">
+{{ form_widget(form) }}
+    <input type="submit" />
+</form>
 {% endblock lime_calendar_content %}

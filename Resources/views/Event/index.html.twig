@@ -1,5 +1,7 @@
 {% extends "LimeCalendarBundle::layout.html.twig" %}
 
 {% block lime_calendar_content %}
-{% include "LimeCalendarBundle:Calendar:render_calendar.html.twig" %}
+{% for event in events %}
+    {% include "LimeCalendarBundle:Event:render_event.html.twig" %}
+{% endfor %}
 {% endblock lime_calendar_content %}
