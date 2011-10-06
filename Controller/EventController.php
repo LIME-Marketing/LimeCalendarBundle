@@ -14,10 +14,10 @@ class EventController extends ContainerAware
     public function indexAction()
     {
         $manager = $this->getEventManager();
-        $calendars = $manager->findAll();
+        $events = $manager->findAll();
 
         return $this->container->get('templating')->renderResponse('LimeCalendarBundle:Event:index.html.' . $this->container->getParameter('lime_calendar.template.engine'), array(
-
+            'events' => $events,
         ));
     }
 

@@ -17,7 +17,7 @@ class CalendarController extends ContainerAware
         $calendars = $manager->findAll();
 
         return $this->container->get('templating')->renderResponse('LimeCalendarBundle:Calendar:index.html.' . $this->container->getParameter('lime_calendar.template.engine'), array(
-
+            'calendars' => $calendars,
         ));
     }
 
