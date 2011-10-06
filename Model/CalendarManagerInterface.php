@@ -5,7 +5,17 @@ namespace Lime\CalendarBundle\Model;
 interface CalendarManagerInterface
 {
 
+    /**
+     * @return boolean whether the calendar was added successfully
+     */
     function addCalendar(CalendarInterface $calendar);
+
+    /**
+     * @return boolean whether the calendar was updated successfully
+     */
+    function updateCalendar(CalendarInterface $calendar);
+
+    function removeCalendar(CalendarInterface $calendar);
 
     /**
      * @return CalendarInterface
@@ -17,6 +27,8 @@ interface CalendarManagerInterface
      * @return CalendarInterface
      */
     function find($id);
+
+    function findAll();
 
     /**
      * @return string concrete Calendar class

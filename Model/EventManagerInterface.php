@@ -5,8 +5,21 @@ namespace Lime\CalendarBundle\Model;
 interface EventManagerInterface
 {
 
+    /**
+     * @return boolean whether the event was added successfully
+     */
     function addEvent(EventInterface $event);
 
+    /**
+     * @return boolean whether the event was updated successfully
+     */
+    function updateEvent(EventInterface $event);
+
+    function removeEvent(EventInterface $event);
+
+    /**
+     * @return EventInterface
+     */
     function createEvent(CalendarInterface $calendar);
 
     /**
@@ -14,6 +27,8 @@ interface EventManagerInterface
      * @return EventInterface
      */
     function find($id);
+
+    function findAll();
 
     /**
      * @return string concrete Event class
