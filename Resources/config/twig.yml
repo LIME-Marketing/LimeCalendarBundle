@@ -1,0 +1,8 @@
+services:
+    lime_calendar.twig.extension:
+        class: Lime\CalendarBundle\Twig\Extension
+        public: false
+        arguments:
+            container: "@service_container"
+        tags:
+            - { name: twig.extension }
