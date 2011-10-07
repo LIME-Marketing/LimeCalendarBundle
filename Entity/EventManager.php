@@ -37,6 +37,8 @@ class EventManager extends BaseEventManager
     public function addEvent(EventInterface $event)
     {
         $this->blamer->blame($event);
+        $event->setCreatedAt(new \DateTime());
+        $event->setUpdatedAt(new \DateTime());
         $this->em->persist($event);
         $this->em->flush();
 
@@ -45,6 +47,7 @@ class EventManager extends BaseEventManager
 
     public function updateEvent(EventInterface $event)
     {
+        $event->setUpdatedAt(new \DateTime());
         $this->em->persist($event);
         $this->em->flush();
 

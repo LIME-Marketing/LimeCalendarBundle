@@ -13,8 +13,8 @@ class EventType extends AbstractType
     {
         $builder->add('name')
             ->add('description')
-            ->add('start_date')
-            ->add('end_date')
+            ->add('start_date', 'datetime')
+            ->add('end_date', 'datetime')
             ->add('visibility', 'choice', array(
                 'choices' => array(
                     EventInterface::VISIBILITY_HIDDEN   => 'Hidden',
