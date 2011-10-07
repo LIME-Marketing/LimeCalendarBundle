@@ -3,7 +3,7 @@ lime_calendar_event_index:
     defaults: { _controller: LimeCalendarBundle:Event:index }
 
 lime_calendar_event_create:
-    pattern: /create
+    pattern: /create/{id}
     defaults: { _controller: LimeCalendarBundle:Event:create }
 
 lime_calendar_event_view:

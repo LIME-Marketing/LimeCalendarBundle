@@ -46,7 +46,7 @@ class EventController extends ContainerAware
         }
 
         return $this->container->get('templating')->renderResponse('LimeCalendarBundle:Event:create.html.' . $this->container->getParameter('lime_calendar.template.engine'), array(
-
+            'form' => $form->createView(),
         ));
     }
 
@@ -58,7 +58,7 @@ class EventController extends ContainerAware
         $manager = $this->getEventManager();
         $event = $manager->find($id);
 
-        return $this->container->get('templating')->renderResponse('LimeCalendarBundle:Event:view.html.' . $this->container->getParamter('lime_calendar.template.engine'), array(
+        return $this->container->get('templating')->renderResponse('LimeCalendarBundle:Event:view.html.' . $this->container->getParameter('lime_calendar.template.engine'), array(
             'event' => $event,
         ));
     }
