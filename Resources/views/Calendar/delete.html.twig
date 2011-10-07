@@ -4,6 +4,6 @@
 <form method="POST">
     <h3>Really delete calendar with id {{ calendar.getId() }}?</h3>
     <input type="submit" />
-    <a href="{{ cancelURL }}">Cancel</a>
+    <a href="{{ cancelURL }}">{% trans from 'LimeCalendarBundle' %}lime_calendar_cancel{% endtrans %}</a>
 </form>
 {% endblock lime_calendar_content %}
