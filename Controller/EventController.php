@@ -7,6 +7,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Lime\CalendarBundle\Model\EventManagerInterface;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Lime\CalendarBundle\Model\EventInterface;
 
 class EventController extends ContainerAware
 {
@@ -24,10 +26,10 @@ class EventController extends ContainerAware
     /**
      * @param integer $id id of calendar that event is being created for
      */
-    public function createAction($id, Request $request)
+    public function createAction($calendar_id, Request $request)
     {
         $calManager = $this->container->get('lime_calendar.manager.calendar');
-        $calendar = $calManager->find($id);
+        $calendar = $calManager->find($calendar_id);
 
         $manager = $this->getEventManager();
         $event = $manager->createEvent($calendar);
