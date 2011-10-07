@@ -7,6 +7,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Lime\CalendarBundle\Model\CalendarManagerInterface;
 use Symfony\Component\Form\Form;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Lime\CalendarBundle\Model\CalendarInterface;
 
 class CalendarController extends ContainerAware
 {
@@ -23,6 +25,10 @@ class CalendarController extends ContainerAware
 
     public function createAction(Request $request)
     {
+        if (!$this->isGranted('create', $this->container->getParameter('lime_calendar.model.calendar.class'))) {
+            throw new AccessDeniedException();
+        }
+
         $manager = $this->getCalendarManager();
         $calendar = $manager->createCalendar();
 
@@ -49,6 +55,10 @@ class CalendarController extends ContainerAware
         $manager = $this->getCalendarManager();
         $calendar = $manager->find($id);
 
+        if (!$this->isGranted('view', $calendar)) {
+            throw new AccessDeniedException();
+        }
+
         return $this->container->get('templating')->renderResponse('LimeCalendarBundle:Calendar:view.html.' . $this->container->getParameter('lime_calendar.template.engine'), array(
             'calendar' => $calendar,
         ));
@@ -58,6 +68,10 @@ class CalendarController extends ContainerAware
     {
         $manager = $this->getCalendarManager();
         $calendar = $manager->find($id);
+
+        if (!$this->isGranted('edit', $calendar)) {
+            throw new AccessDeniedException();
+        }
 
         $form = $this->getCalendarForm();
         $form->setData($calendar);
@@ -82,6 +96,10 @@ class CalendarController extends ContainerAware
         $manager = $this->getCalendarManager();
         $calendar = $manager->find($id);
 
+        if (!$this->isGranted('delete', $calendar)) {
+            throw new AccessDeniedException();
+        }
+
         if ('POST' === $request->getMethod()) {
             $manager->removeCalendar($calendar);
 
@@ -96,6 +114,13 @@ class CalendarController extends ContainerAware
                 'id' => $calendar->getId(),
             )),
         ));
+    }
+
+    protected function isGranted($action, $object = null)
+    {
+        $token = $this->container->get('security.context')->getToken();
+
+        return $this->container->get('lime_calendar.voter')->decide($token, array($action), $object);
     }
 
     /**

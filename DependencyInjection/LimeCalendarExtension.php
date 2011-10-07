@@ -25,7 +25,7 @@ class LimeCalendarExtension extends Extension
         }
         $loader->load(sprintf('%s.yml', $config['db_driver']));
 
-        foreach (array('form', 'blamer', 'twig') as $base) {
+        foreach (array('form', 'blamer', 'twig', 'authorization') as $base) {
             $loader->load(sprintf('%s.yml', $base));
         }
 

@@ -28,6 +28,10 @@ class EventController extends ContainerAware
      */
     public function createAction($calendar_id, Request $request)
     {
+        if (!$this->isGranted('create', $this->container->getParameter('lime_calendar.model.event.class'))) {
+            throw new AccessDeniedException();
+        }
+
         $calManager = $this->container->get('lime_calendar.manager.calendar');
         $calendar = $calManager->find($calendar_id);
 
@@ -60,6 +64,10 @@ class EventController extends ContainerAware
         $manager = $this->getEventManager();
         $event = $manager->find($id);
 
+        if (!$this->isGranted('view', $event)) {
+            throw new AccessDeniedException();
+        }
+
         return $this->container->get('templating')->renderResponse('LimeCalendarBundle:Event:view.html.' . $this->container->getParameter('lime_calendar.template.engine'), array(
             'event' => $event,
         ));
@@ -72,6 +80,10 @@ class EventController extends ContainerAware
     {
         $manager = $this->getEventManager();
         $event = $manager->find($id);
+
+        if (!$this->isGranted('edit', $event)) {
+            throw new AccessDeniedException();
+        }
 
         $form = $this->getEventForm();
         $form->setData($event);
@@ -99,6 +111,10 @@ class EventController extends ContainerAware
         $manager = $this->getEventManager();
         $event = $manager->find($id);
 
+        if (!$this->isGranted('delete', $event)) {
+            throw new AccessDeniedException();
+        }
+
         if ('POST' === $request->getMethod()) {
             $manager->removeEvent($event);
 
@@ -113,6 +129,13 @@ class EventController extends ContainerAware
                 'id' => $event->getId(),
             )),
         ));
+    }
+
+    protected function isGranted($action, $object = null)
+    {
+        $token = $this->container->get('security.context')->getToken();
+
+        return $this->container->get('lime_calendar.voter')->decide($token, array($action), $object);
     }
 
     /**
