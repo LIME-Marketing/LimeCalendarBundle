@@ -2,6 +2,8 @@
 
 namespace Lime\CalendarBundle\Model;
 
+use Symfony\Component\Security\Core\User\UserInterface;
+
 interface CalendarManagerInterface
 {
 
@@ -34,5 +36,13 @@ interface CalendarManagerInterface
      * @return string concrete Calendar class
      */
     function getClass();
+
+    /**
+     * @param mixed $role either a string role or array of roles
+     * @param UserInterface $user
+     * @param CalendarInterface $calendar
+     * @return boolean whether user has (one of the) specified role on the calendar
+     */
+    function hasRole($role, UserInterface $user, CalendarInterface $calendar);
 
 }

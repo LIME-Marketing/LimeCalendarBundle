@@ -25,11 +25,13 @@ class LimeCalendarExtension extends Extension
         }
         $loader->load(sprintf('%s.yml', $config['db_driver']));
 
-        foreach (array('form', 'blamer', 'twig', 'authorization') as $base) {
+        foreach (array('form', 'blamer', 'twig', 'security') as $base) {
             $loader->load(sprintf('%s.yml', $base));
         }
 
+        $container->setParameter('lime_calendar.model.membership.class', $config['class']['model']['membership']);
         $container->setParameter('lime_calendar.model.calendar.class', $config['class']['model']['calendar']);
+        $container->setParameter('lime_calendar.model.participant.class', $config['class']['model']['participant']);
         $container->setParameter('lime_calendar.model.event.class', $config['class']['model']['event']);
 
         $container->setParameter('lime_calendar.form.calendar.type', $config['form']['calendar']['type']);
@@ -51,14 +53,20 @@ class LimeCalendarExtension extends Extension
 
         $container->setParameter('lime_calendar.template.engine', $config['template']['engine']);
 
+        $container->setAlias('lime_calendar.manager.membership', $config['service']['manager']['membership']);
         $container->setAlias('lime_calendar.manager.calendar', $config['service']['manager']['calendar']);
+        $container->setAlias('lime_calendar.manager.participant', $config['service']['manager']['participant']);
         $container->setAlias('lime_calendar.manager.event', $config['service']['manager']['event']);
 
         $container->setAlias('lime_calendar.form_factory.calendar', $config['service']['form_factory']['calendar']);
         $container->setAlias('lime_calendar.form_factory.event', $config['service']['form_factory']['event']);
 
         $container->setAlias('lime_calendar.blamer.calendar', $config['service']['blamer']['calendar']);
+        $container->setAlias('lime_calendar.blamer.membership', $config['service']['blamer']['calendar']);
         $container->setAlias('lime_calendar.blamer.event', $config['service']['blamer']['event']);
+        $container->setAlias('lime_calendar.blamer.participant', $config['service']['blamer']['participant']);
+
+        $container->setAlias('lime_calendar.authorizer', $config['service']['security']['authorizer']);
     }
 
 }

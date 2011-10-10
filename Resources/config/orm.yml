@@ -3,13 +3,29 @@ services:
         class: Lime\CalendarBundle\Entity\CalendarManager
         public: false
         arguments:
+            membershipManager: "@lime_calendar.manager.membership"
             em: "@doctrine.orm.entity_manager"
             class: %lime_calendar.model.calendar.class%
             blamer: "@lime_calendar.blamer.calendar"
+    lime_calendar.manager.membership.default:
+        class: Lime\CalendarBundle\Entity\MembershipManager
+        public: false
+        arguments:
+            em: "@doctrine.orm.entity_manager"
+            class: %lime_calendar.model.membership.class%
+            blamer: "@lime_calendar.blamer.membership"
     lime_calendar.manager.event.default:
         class: Lime\CalendarBundle\Entity\EventManager
         public: false
         arguments:
+            participantManager: "@lime_calendar.manager.participant"
             em: "@doctrine.orm.entity_manager"
             class: %lime_calendar.model.event.class%
             blamer: "@lime_calendar.blamer.event"
+    lime_calendar.manager.participant.default:
+        class: Lime\CalendarBundle\Entity\ParticipantManager
+        public: false
+        arguments:
+            em: "@doctrine.orm.entity_manager"
+            class: %lime_calendar.model.participant.class%
+            blamer: "@lime_calendar.blamer.participant"

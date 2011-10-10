@@ -162,4 +162,19 @@ abstract class Event implements EventInterface
         return $this->description;
     }
 
+    public function isPublic()
+    {
+        return EventInterface::VISIBILITY_PUBLIC === $this->visibility;
+    }
+
+    public function isPrivate()
+    {
+        return EventInterface::VISIBILITY_PRIVATE === $this->visibility;
+    }
+
+    public function isHidden()
+    {
+        return EventInterface::VISIBILITY_HIDDEN === $this->visibility;
+    }
+
 }

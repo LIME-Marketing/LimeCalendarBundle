@@ -12,6 +12,11 @@ interface CalendarInterface extends BlamableInterface
     const VISIBILITY_PRIVATE = 2;
     const VISIBILITY_PUBLIC = 4;
 
+    const ROLE_VIEW = 1;
+    const ROLE_CONTRIBUTE = 2;
+    const ROLE_ADMIN = 4;
+    const ROLE_OWNER = 8;
+
     function getId();
 
     function setCreatedAt(\DateTime $created_at);
@@ -41,5 +46,11 @@ interface CalendarInterface extends BlamableInterface
     function setDescription($description);
 
     function getDescription();
+
+    function isPublic();
+
+    function isPrivate();
+
+    function isHidden();
 
 }

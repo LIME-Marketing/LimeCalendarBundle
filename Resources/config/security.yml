@@ -1,0 +1,7 @@
+services:
+    lime_calendar.authorizer.default:
+        class: Lime\CalendarBundle\Security\Authorizer
+        public: false
+        arguments:
+            calendarManager: "@lime_calendar.manager.calendar"
+            eventManager: "@lime_calendar.manager.event"

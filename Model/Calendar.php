@@ -102,4 +102,19 @@ abstract class Calendar implements CalendarInterface
         return $this->description;
     }
 
+    public function isPublic()
+    {
+        return CalendarInterface::VISIBILITY_PUBLIC === $this->visibility;
+    }
+
+    public function isPrivate()
+    {
+        return CalendarInterface::VISIBILITY_PRIVATE === $this->visibility;
+    }
+
+    public function isHidden()
+    {
+        return CalendarInterface::VISIBILITY_HIDDEN === $this->visibility;
+    }
+
 }
