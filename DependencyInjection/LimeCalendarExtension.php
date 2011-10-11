@@ -67,6 +67,7 @@ class LimeCalendarExtension extends Extension
         $container->setAlias('lime_calendar.blamer.participant', $config['service']['blamer']['participant']);
 
         $container->setAlias('lime_calendar.authorizer', $config['service']['security']['authorizer']);
+        $container->setAlias('lime_calendar.user_provider', $config['service']['security']['user_provider']);
     }
 
 }

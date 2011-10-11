@@ -9,20 +9,20 @@ use Lime\CalendarBundle\Model\EventInterface;
 interface AuthorizerInterface
 {
 
-    public function canViewCalendar(UserInterface $user, CalendarInterface $calendar);
+    public function canViewCalendar(CalendarInterface $calendar, UserInterface $user = null);
 
-    public function canEditCalendar(UserInterface $user, CalendarInterface $calendar);
+    public function canEditCalendar(CalendarInterface $calendar, UserInterface $user = null);
 
-    public function canCreateCalendar(UserInterface $user);
+    public function canCreateCalendar(UserInterface $user = null);
 
-    public function canDeleteCalendar(UserInterface $user, CalendarInterface $calendar);
+    public function canDeleteCalendar(CalendarInterface $calendar, UserInterface $user = null);
 
-    public function canViewEvent(UserInterface $user, EventInterface $event);
+    public function canViewEvent(EventInterface $event, UserInterface $user = null);
 
-    public function canEditEvent(UserInterface $user, EventInterface $event);
+    public function canEditEvent(EventInterface $event, UserInterface $user = null);
 
-    public function canCreateEvent(UserInterface $user, CalendarInterface $calendar);
+    public function canCreateEvent(CalendarInterface $calendar, UserInterface $user = null);
 
-    public function canDeleteEvent(UserInterface $user, EventInterface $event);
+    public function canDeleteEvent(EventInterface $event, UserInterface $user = null);
 
 }

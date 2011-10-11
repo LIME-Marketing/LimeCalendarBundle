@@ -1,7 +1,13 @@
 services:
+    lime_calendar.user_provider.default:
+        class: Lime\CalendarBundle\Security\UserProvider
+        public: false
+        arguments:
+            securityContext: "@security.context"
     lime_calendar.authorizer.default:
         class: Lime\CalendarBundle\Security\Authorizer
         public: false
         arguments:
+            userProvider: "@lime_calendar.user_provider"
             calendarManager: "@lime_calendar.manager.calendar"
             eventManager: "@lime_calendar.manager.event"

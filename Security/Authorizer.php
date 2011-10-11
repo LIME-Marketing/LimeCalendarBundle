@@ -11,53 +11,79 @@ use Lime\CalendarBundle\Model\EventInterface;
 class Authorizer implements AuthorizerInterface
 {
 
+    /**
+     * @var UserProviderInterface
+     */
+    protected $userProvider;
+
+    /**
+     * @var CalendarManagerInterface
+     */
     protected $calendarManager;
+
+    /**
+     * @var EventManagerInterface
+     */
     protected $eventManager;
 
-    public function __construct(CalendarManagerInterface $calendarManager, EventManagerInterface $eventManager)
+    public function __construct(UserProviderInterface $userProvider, CalendarManagerInterface $calendarManager, EventManagerInterface $eventManager)
     {
+        $this->userProvider = $userProvider;
         $this->calendarManager = $calendarManager;
         $this->eventManager = $eventManager;
     }
 
-    public function canViewCalendar(UserInterface $user, CalendarInterface $calendar)
+    public function canViewCalendar(CalendarInterface $calendar, UserInterface $user = null)
     {
-        return $calendar->isPublic() || $calendar->getUser() === $user || $this->calendarManager->isMember($user, $calendar);
+        return $calendar->isPublic() || $calendar->getUser() === $this->getUser($user) || $this->calendarManager->isMember($this->getUser($user), $calendar);
     }
 
-    public function canEditCalendar(UserInterface $user, CalendarInterface $calendar)
+    public function canEditCalendar(CalendarInterface $calendar, UserInterface $user = null)
     {
-        return $calendar->getUser() === $user || $this->calendarManager->hasRole(CalendarInterface::ROLE_ADMIN, $user, $calendar);
+        return $calendar->getUser() === $this->getUser($user) || $this->calendarManager->hasRole(CalendarInterface::ROLE_ADMIN, $this->getUser($user), $calendar);
     }
 
-    public function canCreateCalendar(UserInterface $user)
+    public function canCreateCalendar(UserInterface $user = null)
     {
-        return true;
+        return null !== $this->getUser($user);
     }
 
-    public function canDeleteCalendar(UserInterface $user, CalendarInterface $calendar)
+    public function canDeleteCalendar(CalendarInterface $calendar, UserInterface $user = null)
     {
-        return $calendar->getUser() === $user || $this->calendarManager->hasRole(CalendarInterface::ROLE_ADMIN, $user, $calendar);
+        return $calendar->getUser() === $this->getUser($user) || $this->calendarManager->hasRole(CalendarInterface::ROLE_ADMIN, $this->getUser($user), $calendar);
     }
 
-    public function canViewEvent(UserInterface $user, EventInterface $event)
+    public function canViewEvent(EventInterface $event, UserInterface $user = null)
     {
-        return $this->canViewCalendar($user, $event->getCalendar()) && ($event->isPublic() || $event->getUser() === $user || $this->eventManager->isParticipant($user, $event));
+        return $this->canViewCalendar($this->getUser($user), $event->getCalendar()) && ($event->isPublic() || $event->getUser() === $this->getUser($user) || $this->eventManager->isParticipant($this->getUser($user), $event));
     }
 
-    public function canEditEvent(UserInterface $user, EventInterface $event)
+    public function canEditEvent(EventInterface $event, UserInterface $user = null)
     {
-        return $this->canViewCalendar($user, $event->getCalendar()) && ($event->getUser() === $user || $this->eventManager->hasRole(EventInterface::ROLE_ADMIN, $user, $event));
+        return $this->canViewCalendar($this->getUser($user), $event->getCalendar()) && ($event->getUser() === $this->getUser($user) || $this->eventManager->hasRole(EventInterface::ROLE_ADMIN, $this->getUser($user), $event));
     }
 
-    public function canCreateEvent(UserInterface $user, CalendarInterface $calendar)
+    public function canCreateEvent(CalendarInterface $calendar, UserInterface $user = null)
     {
-        return $this->canViewCalendar($user, $calendar) && ($calendar->getUser() === $user || $this->calendarManager->hasRole(array(CalendarInterface::ROLE_ADMIN, CalendarInterface::ROLE_CONTRIBUTE), $user, $calendar));
+        return $this->canViewCalendar($this->getUser($user), $calendar) && ($calendar->getUser() === $this->getUser($user) || $this->calendarManager->hasRole(array(CalendarInterface::ROLE_ADMIN, CalendarInterface::ROLE_CONTRIBUTE), $this->getUser($user), $calendar));
     }
 
-    public function canDeleteEvent(UserInterface $user, EventInterface $event)
+    public function canDeleteEvent(EventInterface $event, UserInterface $user = null)
     {
-        return $this->canViewCalendar($user, $event->getCalendar()) && ($event->getUser() === $user || $this->eventManager->hasRole(EventInterface::ROLE_ADMIN, $user, $event));
+        return $this->canViewCalendar($this->getUser($user), $event->getCalendar()) && ($event->getUser() === $this->getUser($user) || $this->eventManager->hasRole(EventInterface::ROLE_ADMIN, $this->getUser($user), $event));
+    }
+
+    /**
+     * @param UserInterface $user
+     * @return UserInterface
+     */
+    protected function getUser(UserInterface $user = null)
+    {
+        if (null === $user) {
+            return $this->userProvider->getUser();
+        }
+
+        return $user;
     }
 
 }

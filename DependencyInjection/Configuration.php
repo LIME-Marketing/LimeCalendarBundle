@@ -95,6 +95,7 @@ class Configuration
                         ->end()
                         ->arrayNode('security')->addDefaultsIfNotSet()
                             ->children()
+                                ->scalarNode('user_provider')->cannotBeEmpty()->defaultValue('lime_calendar.user_provider.default')->end()
                                 ->scalarNode('authorizer')->cannotBeEmpty()->defaultValue('lime_calendar.authorizer.default')->end()
                             ->end()
                         ->end()
