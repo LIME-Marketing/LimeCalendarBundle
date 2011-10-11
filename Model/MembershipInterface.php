@@ -6,8 +6,7 @@ use Lime\CalendarBundle\Blamer\BlamableInterface;
 
 interface MembershipInterface extends BlamableInterface
 {
-    const ROLE_OWNER        = 'owner';
-    const ROLE_ADMIN        = 'admin';
-    const ROLE_CONTRIBUTE   = 'contribute';
-    const ROLE_VIEW         = 'view';
+    const ROLE_VIEW = 1;
+    const ROLE_CONTRIBUTE = 2;
+    const ROLE_ADMIN = 4;
 }

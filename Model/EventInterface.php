@@ -12,10 +12,6 @@ interface EventInterface extends BlamableInterface
     const VISIBILITY_PRIVATE = 2;
     const VISIBILITY_PUBLIC = 4;
 
-    const ROLE_VIEW = 1;
-    const ROLE_CONTRIBUTE = 2;
-    const ROLE_ADMIN = 4;
-
     function getId();
 
     function setCreatedAt(\DateTime $created_at);

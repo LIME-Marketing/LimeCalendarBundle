@@ -10,7 +10,6 @@ interface ParticipantInterface extends BlamableInterface
     const ROLE_VIEW = 1;
     const ROLE_CONTRIBUTE = 2;
     const ROLE_ADMIN = 4;
-    const ROLE_OWNER = 8;
 
     function getId();
 
