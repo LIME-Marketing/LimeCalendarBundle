@@ -27,7 +27,7 @@ class Authorizer implements AuthorizerInterface
 
     public function canEditCalendar(UserInterface $user, CalendarInterface $calendar)
     {
-        return $calendar->getUser() === $user || $this->calendarManager->hasRole(array(CalendarInterface::ROLE_ADMIN, CalendarInterface::ROLE_OWNER), $user, $calendar);
+        return $calendar->getUser() === $user || $this->calendarManager->hasRole(CalendarInterface::ROLE_ADMIN, $user, $calendar);
     }
 
     public function canCreateCalendar(UserInterface $user)
@@ -37,7 +37,7 @@ class Authorizer implements AuthorizerInterface
 
     public function canDeleteCalendar(UserInterface $user, CalendarInterface $calendar)
     {
-        return $calendar->getUser() === $user || $this->calendarManager->hasRole(array(CalendarInterface::ROLE_ADMIN, CalendarInterface::ROLE_OWNER), $user, $calendar);
+        return $calendar->getUser() === $user || $this->calendarManager->hasRole(CalendarInterface::ROLE_ADMIN, $user, $calendar);
     }
 
     public function canViewEvent(UserInterface $user, EventInterface $event)
@@ -47,17 +47,17 @@ class Authorizer implements AuthorizerInterface
 
     public function canEditEvent(UserInterface $user, EventInterface $event)
     {
-        return $this->canViewCalendar($user, $event->getCalendar()) && ($event->getUser() === $user || $this->eventManager->hasRole(array(EventInterface::ROLE_ADMIN, EventInterface::ROLE_CONTRIBUTE), $user, $event));
+        return $this->canViewCalendar($user, $event->getCalendar()) && ($event->getUser() === $user || $this->eventManager->hasRole(EventInterface::ROLE_ADMIN, $user, $event));
     }
 
     public function canCreateEvent(UserInterface $user, CalendarInterface $calendar)
     {
-        return $this->canViewCalendar($user, $calendar) && ($calendar->getUser() === $user || $this->calendarManager->hasRole(array(CalendarInterface::ROLE_ADMIN, CalendarInterface::ROLE_OWNER, CalendarInterface::ROLE_CONTRIBUTE), $user, $calendar));
+        return $this->canViewCalendar($user, $calendar) && ($calendar->getUser() === $user || $this->calendarManager->hasRole(array(CalendarInterface::ROLE_ADMIN, CalendarInterface::ROLE_CONTRIBUTE), $user, $calendar));
     }
 
     public function canDeleteEvent(UserInterface $user, EventInterface $event)
     {
-        return $this->canViewCalendar($user, $event->getCalendar()) && ($event->getUser() === $user || $this->eventManager->hasRole(array(EventInterface::ROLE_ADMIN, EventInterface::ROLE_OWNER), $user, $event));
+        return $this->canViewCalendar($user, $event->getCalendar()) && ($event->getUser() === $user || $this->eventManager->hasRole(EventInterface::ROLE_ADMIN, $user, $event));
     }
 
 }
