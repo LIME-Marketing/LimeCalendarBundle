@@ -14,3 +14,12 @@ License
 Released under the MIT license:
 
     Resources/meta/LICENSE
+    
+Todo
+----
+
+- Add ODM support
+- Resolve event recurrence issues
+- Fix/expand tests
+- Add ACL support
+- Clean up and expand views
