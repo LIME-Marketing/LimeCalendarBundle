@@ -9,6 +9,7 @@ use Lime\CalendarBundle\Model\CalendarManagerInterface;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Lime\CalendarBundle\Model\CalendarInterface;
+use Lime\CalendarBundle\Security\AuthorizerInterface;
 
 class CalendarController extends ContainerAware
 {
@@ -25,7 +26,7 @@ class CalendarController extends ContainerAware
 
     public function createAction(Request $request)
     {
-        if (!$this->isGranted('create', $this->container->getParameter('lime_calendar.model.calendar.class'))) {
+        if (!$this->getAuthorizer()->canCreateCalendar()) {
             throw new AccessDeniedException();
         }
 
@@ -55,7 +56,7 @@ class CalendarController extends ContainerAware
         $manager = $this->getCalendarManager();
         $calendar = $manager->find($id);
 
-        if (!$this->isGranted('view', $calendar)) {
+        if (!$this->getAuthorizer()->canViewCalendar($calendar)) {
             throw new AccessDeniedException();
         }
 
@@ -69,7 +70,7 @@ class CalendarController extends ContainerAware
         $manager = $this->getCalendarManager();
         $calendar = $manager->find($id);
 
-        if (!$this->isGranted('edit', $calendar)) {
+        if (!$this->getAuthorizer()->canEditCalendar($calendar)) {
             throw new AccessDeniedException();
         }
 
@@ -96,7 +97,7 @@ class CalendarController extends ContainerAware
         $manager = $this->getCalendarManager();
         $calendar = $manager->find($id);
 
-        if (!$this->isGranted('delete', $calendar)) {
+        if (!$this->getAuthorizer()->canDeleteCalendar($calendar)) {
             throw new AccessDeniedException();
         }
 
@@ -116,11 +117,13 @@ class CalendarController extends ContainerAware
         ));
     }
 
-    protected function isGranted($action, $object = null)
+    /**
+     *
+     * @return AuthorizerInterface
+     */
+    protected function getAuthorizer()
     {
-        $token = $this->container->get('security.context')->getToken();
-
-        return $this->container->get('lime_calendar.voter')->decide($token, array($action), $object);
+        return $this->container->get('lime_calendar.authorizer');
     }
 
     /**
