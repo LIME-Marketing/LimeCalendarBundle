@@ -8,6 +8,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Lime\CalendarBundle\Model\CalendarInterface;
 use Doctrine\ORM\EntityRepository;
 use Lime\CalendarBundle\Blamer\BlamerInterface;
+use Doctrine\ORM\NoResultException;
 
 class MembershipManager extends BaseMembershipManager
 {
@@ -56,7 +57,11 @@ class MembershipManager extends BaseMembershipManager
             'calendar' => $calendar,
         ));
 
-        $result = $qb->getQuery()->getSingleResult();
+        try {
+            $result = $qb->getQuery()->getSingleResult();
+        } catch (NoResultException $ex) {
+            $result = null;
+        }
 
         return $result;
     }

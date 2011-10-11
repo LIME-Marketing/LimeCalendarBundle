@@ -25,6 +25,7 @@ class EventManager extends BaseEventManager
         $this->repo = $em->getRepository($class);
         $this->class = $class;
         $this->blamer = $blamer;
+        $this->participantManager = $participantManager;
     }
 
     public function find($id)

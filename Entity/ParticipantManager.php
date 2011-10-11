@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityRepository;
 use Lime\CalendarBundle\Blamer\BlamerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Lime\CalendarBundle\Model\EventInterface;
+use Doctrine\ORM\NoResultException;
 
 class ParticipantManager extends BaseParticipantManager
 {
@@ -56,9 +57,18 @@ class ParticipantManager extends BaseParticipantManager
             'event' => $event,
         ));
 
-        $result = $qb->getQuery()->getSingleResult();
+        try {
+            $result = $qb->getQuery()->getSingleResult();
+        } catch (NoResultException $ex) {
+            $result = null;
+        }
 
         return $result;
+    }
+
+    public function getClass()
+    {
+        return $this->class;
     }
 
 }

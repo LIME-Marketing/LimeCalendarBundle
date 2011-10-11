@@ -24,6 +24,7 @@ class CalendarManager extends BaseCalendarManager
         $this->repo = $em->getRepository($class);
         $this->class = $class;
         $this->blamer = $blamer;
+        $this->membershipManager = $membershipManager;
     }
 
     public function find($id)
