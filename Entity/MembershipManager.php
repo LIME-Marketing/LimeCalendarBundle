@@ -9,6 +9,7 @@ use Lime\CalendarBundle\Model\CalendarInterface;
 use Doctrine\ORM\EntityRepository;
 use Lime\CalendarBundle\Blamer\BlamerInterface;
 use Doctrine\ORM\NoResultException;
+use Lime\CalendarBundle\Model\MembershipInterface;
 
 class MembershipManager extends BaseMembershipManager
 {
@@ -28,22 +29,26 @@ class MembershipManager extends BaseMembershipManager
      */
     protected $repo;
 
-    /**
-     * @var BlamerInterface
-     */
-    protected $blamer;
-
-    public function __construct(EntityManager $em, $class, BlamerInterface $blamer)
+    public function __construct(EntityManager $em, $class)
     {
         $this->em = $em;
         $this->repo = $em->getRepository($class);
         $this->class = $class;
-        $this->blamer = $blamer;
     }
 
     public function find($id)
     {
         return $this->repo->find($id);
+    }
+
+    public function addMembership(MembershipInterface $membership)
+    {
+        $membership->setCreatedAt(new \DateTime());
+        $membership->setUpdatedAt(new \DateTime());
+        $this->em->persist($membership);
+        $this->em->flush();
+
+        return true;
     }
 
     public function getMembership(UserInterface $user, CalendarInterface $calendar)

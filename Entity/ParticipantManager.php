@@ -28,17 +28,11 @@ class ParticipantManager extends BaseParticipantManager
      */
     protected $class;
 
-    /**
-     * @var BlamerInterface
-     */
-    protected $blamer;
-
-    public function __construct(EntityManager $em, $class, BlamerInterface $blamer)
+    public function __construct(EntityManager $em, $class)
     {
         $this->em = $em;
         $this->repo = $em->getRepository($class);
         $this->class = $class;
-        $this->blamer = $blamer;
     }
 
     public function find($id)
