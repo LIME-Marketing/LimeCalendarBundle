@@ -37,12 +37,14 @@ class Authorizer implements AuthorizerInterface
 
     public function canViewCalendar(CalendarInterface $calendar, UserInterface $user = null)
     {
-        return $calendar->isPublic() || $calendar->getUser() === $this->getUser($user) || $this->calendarManager->isMember($this->getUser($user), $calendar);
+        $user = $this->getUser($user);
+        return null === $user ? false : $calendar->isPublic() || $calendar->getUser() === $user || $this->calendarManager->isMember($user, $calendar);
     }
 
     public function canEditCalendar(CalendarInterface $calendar, UserInterface $user = null)
     {
-        return $calendar->getUser() === $this->getUser($user) || $this->calendarManager->hasRole(MembershipInterface::ROLE_ADMIN, $this->getUser($user), $calendar);
+        $user = $this->getUser($user);
+        return null === $user ? false : $calendar->getUser() === $user || $this->calendarManager->hasRole(MembershipInterface::ROLE_ADMIN, $user, $calendar);
     }
 
     public function canCreateCalendar(UserInterface $user = null)
@@ -52,27 +54,32 @@ class Authorizer implements AuthorizerInterface
 
     public function canDeleteCalendar(CalendarInterface $calendar, UserInterface $user = null)
     {
-        return $calendar->getUser() === $this->getUser($user) || $this->calendarManager->hasRole(MembershipInterface::ROLE_ADMIN, $this->getUser($user), $calendar);
+        $user = $this->getUser($user);
+        return null === $user ? false : $calendar->getUser() === $user || $this->calendarManager->hasRole(MembershipInterface::ROLE_ADMIN, $user, $calendar);
     }
 
     public function canViewEvent(EventInterface $event, UserInterface $user = null)
     {
-        return $this->canViewCalendar($this->getUser($user), $event->getCalendar()) && ($event->isPublic() || $event->getUser() === $this->getUser($user) || $this->eventManager->isParticipant($this->getUser($user), $event));
+        $user = $this->getUser($user);
+        return null === $user ? false : $this->canViewCalendar($user, $event->getCalendar()) && ($event->isPublic() || $event->getUser() === $user || $this->eventManager->isParticipant($user, $event));
     }
 
     public function canEditEvent(EventInterface $event, UserInterface $user = null)
     {
-        return $this->canViewCalendar($this->getUser($user), $event->getCalendar()) && ($event->getUser() === $this->getUser($user) || $this->eventManager->hasRole(ParticipantInterface::ROLE_ADMIN, $this->getUser($user), $event));
+        $user = $this->getUser($user);
+        return null === $user ? false : $this->canViewCalendar($user, $event->getCalendar()) && ($event->getUser() === $user || $this->eventManager->hasRole(ParticipantInterface::ROLE_ADMIN, $user, $event));
     }
 
     public function canCreateEvent(CalendarInterface $calendar, UserInterface $user = null)
     {
-        return $this->canViewCalendar($this->getUser($user), $calendar) && ($calendar->getUser() === $this->getUser($user) || $this->calendarManager->hasRole(array(MembershipInterface::ROLE_ADMIN, MembershipInterface::ROLE_CONTRIBUTE), $this->getUser($user), $calendar));
+        $user = $this->getUser($user);
+        return null === $user ? false : $this->canViewCalendar($user, $calendar) && ($calendar->getUser() === $user || $this->calendarManager->hasRole(array(MembershipInterface::ROLE_ADMIN, MembershipInterface::ROLE_CONTRIBUTE), $user, $calendar));
     }
 
     public function canDeleteEvent(EventInterface $event, UserInterface $user = null)
     {
-        return $this->canViewCalendar($this->getUser($user), $event->getCalendar()) && ($event->getUser() === $this->getUser($user) || $this->eventManager->hasRole(ParticipantInterface::ROLE_ADMIN, $this->getUser($user), $event));
+        $user = $this->getUser($user);
+        return null === $user ? false : $this->canViewCalendar($user, $event->getCalendar()) && ($event->getUser() === $user || $this->eventManager->hasRole(ParticipantInterface::ROLE_ADMIN, $user, $event));
     }
 
     /**
@@ -82,7 +89,7 @@ class Authorizer implements AuthorizerInterface
     protected function getUser(UserInterface $user = null)
     {
         if (null === $user) {
-            return $this->userProvider->getUser();
+            return is_object($this->userProvider->getUser()) ? $this->userProvider->getUser() : null;
         }
 
         return $user;
