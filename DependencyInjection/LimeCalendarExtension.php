@@ -29,6 +29,7 @@ class LimeCalendarExtension extends Extension
             $loader->load(sprintf('%s.yml', $base));
         }
 
+        $container->setParameter('lime_calendar.model.user.class', $config['class']['model']['user']);
         $container->setParameter('lime_calendar.model.membership.class', $config['class']['model']['membership']);
         $container->setParameter('lime_calendar.model.calendar.class', $config['class']['model']['calendar']);
         $container->setParameter('lime_calendar.model.participant.class', $config['class']['model']['participant']);
@@ -36,8 +37,12 @@ class LimeCalendarExtension extends Extension
 
         $container->setParameter('lime_calendar.form.calendar.type', $config['form']['calendar']['type']);
         $container->setParameter('lime_calendar.form.calendar.name', $config['form']['calendar']['name']);
+        $container->setParameter('lime_calendar.form.membership.type', $config['form']['membership']['type']);
+        $container->setParameter('lime_calendar.form.membership.name', $config['form']['membership']['name']);
         $container->setParameter('lime_calendar.form.event.type', $config['form']['event']['type']);
         $container->setParameter('lime_calendar.form.event.name', $config['form']['event']['name']);
+        $container->setParameter('lime_calendar.form.participant.type', $config['form']['participant']['type']);
+        $container->setParameter('lime_calendar.form.participant.name', $config['form']['participant']['name']);
 
         $container->setParameter('lime_calendar.routing.calendar.index', $config['routing']['calendar']['index']);
         $container->setParameter('lime_calendar.routing.calendar.view', $config['routing']['calendar']['view']);
@@ -58,13 +63,15 @@ class LimeCalendarExtension extends Extension
         $container->setAlias('lime_calendar.manager.participant', $config['service']['manager']['participant']);
         $container->setAlias('lime_calendar.manager.event', $config['service']['manager']['event']);
 
+        $container->setAlias('lime_calendar.form.username_transformer', $config['service']['form']['username_transformer']);
+
         $container->setAlias('lime_calendar.form_factory.calendar', $config['service']['form_factory']['calendar']);
+        $container->setAlias('lime_calendar.form_factory.membership', $config['service']['form_factory']['membership']);
         $container->setAlias('lime_calendar.form_factory.event', $config['service']['form_factory']['event']);
+        $container->setAlias('lime_calendar.form_factory.participant', $config['service']['form_factory']['participant']);
 
         $container->setAlias('lime_calendar.blamer.calendar', $config['service']['blamer']['calendar']);
-        $container->setAlias('lime_calendar.blamer.membership', $config['service']['blamer']['calendar']);
         $container->setAlias('lime_calendar.blamer.event', $config['service']['blamer']['event']);
-        $container->setAlias('lime_calendar.blamer.participant', $config['service']['blamer']['participant']);
 
         $container->setAlias('lime_calendar.authorizer', $config['service']['security']['authorizer']);
         $container->setAlias('lime_calendar.user_provider', $config['service']['security']['user_provider']);

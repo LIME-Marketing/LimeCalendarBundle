@@ -4,3 +4,11 @@ lime_calendar_calendar:
 lime_calendar_event:
     resource: "@LimeCalendarBundle/Resources/config/routing/event.yml"
     prefix: /event
+
+lime_calendar_membership:
+    resource: "@LimeCalendarBundle/Resources/config/routing/membership.yml"
+    prefix: /membership
+
+lime_calendar_participant:
+    resource: "@LimeCalendarBundle/Resources/config/routing/participant.yml"
+    prefix: /event/participant

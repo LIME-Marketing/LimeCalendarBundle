@@ -3,22 +3,50 @@ services:
         class: Lime\CalendarBundle\Form\CalendarType
         tags:
             - { name: form.type, alias: lime_calendar.calendar }
+    lime_calendar.form_type.membership.default:
+        class: Lime\CalendarBundle\Form\MembershipType
+        tags:
+            - { name: form.type, alias: lime_calendar.membership }
     lime_calendar.form_type.event.default:
         class: Lime\CalendarBundle\Form\EventType
         tags:
             - { name: form.type, alias: lime_calendar.event }
+    lime_calendar.form_type.participant.default:
+        class: Lime\CalendarBundle\Form\ParticipantType
+        tags:
+            - { name: form.type, alias: lime_calendar.participant }
+    lime_calendar.form_type.username.default:
+        class: Lime\CalendarBundle\Form\UsernameType
+        arguments:
+            usernameTransformer: "@lime_calendar.form.username_transformer"
+        tags:
+            - { name: form.type, alias: lime_calendar.username }
 
     lime_calendar.form_factory.calendar.default:
-        class: Lime\CalendarBundle\FormFactory\CalendarFormFactory
+        class: Lime\CalendarBundle\FormFactory\FormFactory
         public: false
         arguments:
             formFactory: "@form.factory"
             type: %lime_calendar.form.calendar.type%
             name: %lime_calendar.form.calendar.name%
+    lime_calendar.form_factory.membership.default:
+        class: Lime\CalendarBundle\FormFactory\FormFactory
+        public: false
+        arguments:
+            formFactory: "@form.factory"
+            type: %lime_calendar.form.membership.type%
+            name: %lime_calendar.form.membership.name%
     lime_calendar.form_factory.event.default:
-        class: Lime\CalendarBundle\FormFactory\EventFormFactory
+        class: Lime\CalendarBundle\FormFactory\FormFactory
         public: false
         arguments:
             formFactory: "@form.factory"
             type: %lime_calendar.form.event.type%
             name: %lime_calendar.form.event.name%
+    lime_calendar.form_factory.participant.default:
+        class: Lime\CalendarBundle\FormFactory\FormFactory
+        public: false
+        arguments:
+            formFactory: "@form.factory"
+            type: %lime_calendar.form.participant.type%
+            name: %lime_calendar.form.participant.name%

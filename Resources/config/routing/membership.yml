@@ -1,0 +1,7 @@
+lime_calendar_membership_add:
+    pattern: /add/{calendar_id}
+    defaults: { _controller: LimeCalendarBundle:Membership:add }
+
+lime_calendar_membership_update:
+    pattern: /update/{id}
+    defaults: { _controller: LimeCalendarBundle:Membership:update }

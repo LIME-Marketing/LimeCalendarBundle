@@ -13,7 +13,6 @@ services:
         arguments:
             em: "@doctrine.orm.entity_manager"
             class: %lime_calendar.model.membership.class%
-            blamer: "@lime_calendar.blamer.membership"
     lime_calendar.manager.event.default:
         class: Lime\CalendarBundle\Entity\EventManager
         public: false
@@ -28,4 +27,9 @@ services:
         arguments:
             em: "@doctrine.orm.entity_manager"
             class: %lime_calendar.model.participant.class%
-            blamer: "@lime_calendar.blamer.participant"
+    lime_calendar.form.username_transformer.default:
+        class: Lime\CalendarBundle\Entity\UsernameToUserTransformer
+        public: false
+        arguments:
+            em: "@doctrine.orm.entity_manager"
+            class: %lime_calendar.model.user.class%
