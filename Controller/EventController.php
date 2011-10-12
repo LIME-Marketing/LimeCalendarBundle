@@ -2,7 +2,6 @@
 
 namespace Lime\CalendarBundle\Controller;
 
-use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Lime\CalendarBundle\Model\EventManagerInterface;
 use Symfony\Component\Form\Form;
@@ -11,7 +10,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Lime\CalendarBundle\Model\EventInterface;
 use Lime\CalendarBundle\Security\AuthorizerInterface;
 
-class EventController extends ContainerAware
+class EventController extends BaseController
 {
 
     public function indexAction()
@@ -33,8 +32,8 @@ class EventController extends ContainerAware
             throw new AccessDeniedException();
         }
 
-        $calManager = $this->container->get('lime_calendar.manager.calendar');
-        $calendar = $calManager->find($calendar_id);
+        $calendarManager = $this->getCalendarManager();
+        $calendar = $calendarManager->find($calendar_id);
 
         $manager = $this->getEventManager();
         $event = $manager->createEvent($calendar);
@@ -130,22 +129,6 @@ class EventController extends ContainerAware
                 'id' => $event->getId(),
             )),
         ));
-    }
-
-    /**
-     * @return AuthorizerInterface
-     */
-    protected function getAuthorizer()
-    {
-        return $this->container->get('authorizer');
-    }
-
-    /**
-     * @return EventManagerInterface
-     */
-    protected function getEventManager()
-    {
-        return $this->container->get('lime_calendar.manager.event');
     }
 
     /**
