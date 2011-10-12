@@ -2,17 +2,17 @@
 
 namespace Lime\CalendarBundle\FormFactory;
 
+use Symfony\Component\Form\FormFactoryInterface as BaseFormFactoryInterface;
 use Symfony\Component\Form\Form;
-use Symfony\Component\Form\FormFactory;
 
-class EventFormFactory implements EventFormFactoryInterface
+class FormFactory implements FormFactoryInterface
 {
 
     protected $formFactory;
     protected $type;
     protected $name;
 
-    public function __construct(FormFactory $formFactory, $type, $name)
+    public function __construct(BaseFormFactoryInterface $formFactory, $type, $name)
     {
         $this->formFactory  = $formFactory;
         $this->type         = $type;
@@ -22,11 +22,9 @@ class EventFormFactory implements EventFormFactoryInterface
     /**
      * @return Form
      */
-    public function createForm()
+    public function createForm($data = null)
     {
-        $builder = $this->formFactory->createNamedBuilder($this->type, $this->name);
-
-        return $builder->getForm();
+        return $this->formFactory->createNamed($this->type, $this->name, $data);
     }
 
 }
